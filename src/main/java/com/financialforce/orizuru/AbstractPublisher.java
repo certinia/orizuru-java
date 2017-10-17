@@ -89,6 +89,8 @@ public abstract class AbstractPublisher<O extends GenericContainer> implements I
 
 			return writeTransport(contextSchema, contextBuffer, messageSchema, messageBuffer);
 
+		} catch (OrizuruPublisherException ex) {
+			throw ex;
 		} catch (Exception ex) {
 			throw new OrizuruPublisherException(ex);
 		}

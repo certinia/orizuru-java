@@ -32,8 +32,8 @@ public class OrizuruConsumerException extends OrizuruException {
 
 	private static final long serialVersionUID = 1L;
 
-	public OrizuruConsumerException(Throwable cause) {
-		super("Failed to consume message", cause);
+	public OrizuruConsumerException(String message, Throwable cause) {
+		super(String.format("Failed to consume message: %s", message), cause);
 	}
 
 }

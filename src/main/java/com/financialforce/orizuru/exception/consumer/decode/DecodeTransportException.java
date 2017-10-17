@@ -26,12 +26,14 @@
 
 package com.financialforce.orizuru.exception.consumer.decode;
 
-public class DecodeTransportException extends Exception {
+import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
+
+public class DecodeTransportException extends OrizuruConsumerException {
 
 	private static final long serialVersionUID = 1L;
 
 	public DecodeTransportException(Throwable cause) {
-		super("Failed to decode transport from message", cause);
+		super("Failed to decode transport", cause);
 	}
 
 }

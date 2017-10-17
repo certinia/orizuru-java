@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.util.Base64;
 
 import org.apache.avro.generic.GenericContainer;
+import org.codehaus.jackson.JsonParseException;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,6 +48,8 @@ import org.junit.rules.ExpectedException;
 import com.financialforce.orizuru.exception.OrizuruException;
 import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
+import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageContentException;
+import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeTransportException;
 import com.financialforce.orizuru.exception.consumer.handler.HandleMessageException;
 import com.financialforce.orizuru.interfaces.IConsumer;
@@ -127,8 +130,9 @@ public class AbstractConsumerTest {
 		IConsumer consumer = new Consumer(QUEUE_NAME, null);
 
 		// expect
-		exception.expect(OrizuruConsumerException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(DecodeTransportException.class));
+		exception.expect(DecodeTransportException.class);
+		exception.expectMessage("Failed to consume message: Failed to decode transport");
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
 		// when
 		consumer.consume(null);
@@ -144,8 +148,42 @@ public class AbstractConsumerTest {
 		IConsumer consumer = new Consumer(QUEUE_NAME, null);
 
 		// expect
-		exception.expect(OrizuruConsumerException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(DecodeContextException.class));
+		exception.expect(DecodeContextException.class);
+		exception.expectMessage("Failed to consume message: Failed to decode context");
+
+		// when
+		consumer.consume(body);
+
+	}
+	
+	@Test
+	public void consume_throwsDecodeMessageExceptionForInvalidMessageSchema() throws Exception {
+
+		// given
+		byte[] body = Base64.getDecoder().decode(getFileContents("invalidMessageSchema.txt"));
+
+		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+
+		// expect
+		exception.expect(DecodeMessageException.class);
+		exception.expectMessage("Failed to consume message: Failed to decode message");
+
+		// when
+		consumer.consume(body);
+
+	}
+	
+	@Test
+	public void consume_throwsDecodeMessageContentExceptionForInvalidMessageContent() throws Exception {
+
+		// given
+		byte[] body = Base64.getDecoder().decode(getFileContents("invalidMessageContent.txt"));
+
+		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+
+		// expect
+		exception.expect(DecodeMessageContentException.class);
+		exception.expectMessage("Failed to consume message: Failed to decode message");
 
 		// when
 		consumer.consume(body);
@@ -161,8 +199,9 @@ public class AbstractConsumerTest {
 		IConsumer consumer = new ErrorConsumer(QUEUE_NAME, null);
 
 		// expect
-		exception.expect(OrizuruConsumerException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(HandleMessageException.class));
+		exception.expect(HandleMessageException.class);
+		exception.expectMessage("Failed to consume message: Failed to handle message");
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
 		// when
 		consumer.consume(body);
@@ -178,8 +217,9 @@ public class AbstractConsumerTest {
 		IConsumer consumer = new ErrorConsumer2(QUEUE_NAME, null);
 
 		// expect
-		exception.expect(OrizuruConsumerException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(HandleMessageException.class));
+		exception.expect(HandleMessageException.class);
+		exception.expectMessage("Failed to consume message: Failed to handle message: test");
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
 		// when
 		consumer.consume(body);

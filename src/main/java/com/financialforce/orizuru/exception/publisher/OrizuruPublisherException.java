@@ -36,4 +36,8 @@ public class OrizuruPublisherException extends OrizuruException {
 		super("Failed to publish message", cause);
 	}
 
+	public OrizuruPublisherException(String message, Throwable cause) {
+		super(String.format("Failed to publish message: %s", message), cause);
+	}
+	
 }

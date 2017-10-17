@@ -26,13 +26,13 @@
 
 package com.financialforce.orizuru.interfaces;
 
-import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
+import com.financialforce.orizuru.exception.OrizuruException;
 
 public interface IConsumer extends IQueueable {
 
 	/**
 	 * Consumes a message from the queue. 
 	 */
-	byte[] consume(byte[] body) throws OrizuruConsumerException;
+	byte[] consume(byte[] body) throws OrizuruException;
 
 }

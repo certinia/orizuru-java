@@ -66,8 +66,8 @@ public class AbstractPublisherTest {
 	@Before
 	public void doBefore() {
 
-		schema = SchemaBuilder.record("TestSchema").namespace("com.financialforce.test").fields().name("testBoolean")
-				.type().booleanType().noDefault().endRecord();
+		schema = SchemaBuilder.record("TestSchema").namespace("com.financialforce.test").fields().name("testString")
+				.type().stringType().noDefault().endRecord();
 
 		publisher = new Publisher();
 	}
@@ -93,7 +93,7 @@ public class AbstractPublisherTest {
 		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("{}".getBytes()));
 
 		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
-		builder.set("testBoolean", Boolean.TRUE);
+		builder.set("testString", "testData");
 		Record record = builder.build();
 
 		// when
@@ -107,41 +107,25 @@ public class AbstractPublisherTest {
 	}
 
 	@Test
-	public void publish_shouldThrowAOrizuruPublisherExceptionForANullMessage() throws Exception {
+	public void publish_shouldThrowAnOrizuruPublisherExceptionForAnInvalidMessage() throws Exception {
 
 		// given
-		Context context = mock(Context.class);
-		when(context.getSchemaStr()).thenReturn("contextSchema");
-		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("contextBuffer".getBytes()));
+		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
+		builder.set("testString", "testData");
+		Record record = builder.build();
 
 		// expect
 		exception.expect(OrizuruPublisherException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(EncodeMessageContentException.class));
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
+		exception.expectMessage("Failed to publish message");
 
 		// when
-		publisher.publish(context, null);
+		publisher.publish(null, record);
 
 	}
-
+	
 	@Test
-	public void publish_shouldThrowAOrizuruPublisherExceptionForAnInvalidMessage() throws Exception {
-
-		// given
-		Context context = mock(Context.class);
-		when(context.getSchemaStr()).thenReturn("contextSchema");
-		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("contextBuffer".getBytes()));
-
-		// expect
-		exception.expect(OrizuruPublisherException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(EncodeMessageContentException.class));
-
-		// when
-		publisher.publish(context, null);
-
-	}
-
-	@Test
-	public void publish_shouldThrowAOrizuruPublisherExceptionForAnInvalidTransport() throws Exception {
+	public void publish_shouldThrowAnEncodeTransportExceptionForAnInvalidTransport() throws Exception {
 
 		// given
 		Context context = mock(Context.class);
@@ -149,15 +133,34 @@ public class AbstractPublisherTest {
 		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("contextBuffer".getBytes()));
 
 		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
-		builder.set("testBoolean", Boolean.TRUE);
+		builder.set("testString", "testData");
 		Record record = builder.build();
 
 		// expect
-		exception.expect(OrizuruPublisherException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(EncodeTransportException.class));
+		exception.expect(EncodeTransportException.class);
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
+		exception.expectMessage("Failed to publish message: Failed to encode transport");
 
 		// when
 		publisher.publish(context, record);
+
+	}
+	
+	@Test
+	public void publish_shouldThrowAnEncodeMessageContentExceptionForAnInvalidMessage() throws Exception {
+
+		// given
+		Context context = mock(Context.class);
+		when(context.getSchemaStr()).thenReturn("contextSchema");
+		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("contextBuffer".getBytes()));
+
+		// expect
+		exception.expect(EncodeMessageContentException.class);
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
+		exception.expectMessage("Failed to publish message: Failed to encode message content");
+
+		// when
+		publisher.publish(context, null);
 
 	}
 

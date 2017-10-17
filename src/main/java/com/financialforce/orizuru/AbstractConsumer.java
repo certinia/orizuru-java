@@ -35,8 +35,10 @@ import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DecoderFactory;
 import org.apache.avro.specific.SpecificDatumReader;
 
-import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
+import com.financialforce.orizuru.exception.OrizuruException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
+import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageContentException;
+import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeTransportException;
 import com.financialforce.orizuru.exception.consumer.handler.HandleMessageException;
 import com.financialforce.orizuru.interfaces.IConsumer;
@@ -82,30 +84,24 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 	}
 
 	@Override
-	public byte[] consume(byte[] body) throws OrizuruConsumerException {
+	public byte[] consume(byte[] body) throws OrizuruException {
 
-		try {
+		// Handle the input
+		Transport transport = decodeTransport(body);
+		Context context = decodeContext(transport);
 
-			// Handle the input
-			Transport transport = decodeTransport(body);
-			Context context = decodeContext(transport);
+		Message incomingMessage = decodeMessage(transport);
+		I input = decodeIncomingMessage(incomingMessage);
 
-			Message incomingMessage = decodeMessage(transport);
-			I input = decodeIncomingMessage(incomingMessage);
+		// Handle the message
+		O outgoingMessage = handleMessage(context, input);
 
-			// Handle the message
-			O outgoingMessage = handleMessage(context, input);
-
-			// If a publisher is defined then create the message to publish
-			if (publisher != null) {
-				return publisher.publish(context, outgoingMessage);
-			}
-
-			return null;
-
-		} catch (Exception ex) {
-			throw new OrizuruConsumerException(ex);
+		// If a publisher is defined then create the message to publish
+		if (publisher != null) {
+			return publisher.publish(context, outgoingMessage);
 		}
+
+		return null;
 
 	}
 
@@ -154,23 +150,35 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 
 	}
 
-	private Message decodeMessage(Transport input) throws Exception {
+	private Message decodeMessage(Transport input) throws DecodeMessageException {
 
-		String messageSchemaStr = input.getMessageSchema().toString();
-		ByteBuffer messageBuffer = input.getMessageBuffer();
-		byte[] data = messageBuffer.array();
+		try {
 
-		Schema.Parser parser = new Schema.Parser();
-		Schema schema = parser.parse(messageSchemaStr);
-		return new Message(schema, data);
+			String messageSchemaStr = input.getMessageSchema().toString();
+			ByteBuffer messageBuffer = input.getMessageBuffer();
+			byte[] data = messageBuffer.array();
+
+			Schema.Parser parser = new Schema.Parser();
+			Schema schema = parser.parse(messageSchemaStr);
+			return new Message(schema, data);
+
+		} catch (Exception ex) {
+			throw new DecodeMessageException(ex);
+		}
 
 	}
 
-	private I decodeIncomingMessage(Message incomingMessage) throws Exception {
+	private I decodeIncomingMessage(Message incomingMessage) throws DecodeMessageContentException {
 
-		DatumReader<I> messageDatumReader = new SpecificDatumReader<I>(incomingMessage.getSchema());
-		BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(incomingMessage.getData(), null);
-		return messageDatumReader.read(null, decoder);
+		try {
+		
+			DatumReader<I> messageDatumReader = new SpecificDatumReader<I>(incomingMessage.getSchema());
+			BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(incomingMessage.getData(), null);
+			return messageDatumReader.read(null, decoder);
+
+		} catch (Exception ex) {
+			throw new DecodeMessageContentException(ex);
+		}
 
 	}
 

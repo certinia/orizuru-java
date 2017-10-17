@@ -26,7 +26,9 @@
 
 package com.financialforce.orizuru.exception.publisher.encode;
 
-public class EncodeTransportException extends Exception {
+import com.financialforce.orizuru.exception.publisher.OrizuruPublisherException;
+
+public class EncodeTransportException extends OrizuruPublisherException {
 
 	private static final long serialVersionUID = 1L;
 

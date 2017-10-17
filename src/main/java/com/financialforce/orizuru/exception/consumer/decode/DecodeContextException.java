@@ -26,12 +26,14 @@
 
 package com.financialforce.orizuru.exception.consumer.decode;
 
-public class DecodeContextException extends Exception {
+import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
+
+public class DecodeContextException extends OrizuruConsumerException {
 
 	private static final long serialVersionUID = 1L;
 
 	public DecodeContextException(Throwable cause) {
-		super("Failed to decode context from message", cause);
+		super("Failed to decode context", cause);
 	}
 
 }

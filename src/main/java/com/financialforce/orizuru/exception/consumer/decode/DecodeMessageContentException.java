@@ -24,20 +24,16 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **/
 
-package com.financialforce.orizuru.exception.consumer.handler;
+package com.financialforce.orizuru.exception.consumer.decode;
 
 import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 
-public class HandleMessageException extends OrizuruConsumerException {
+public class DecodeMessageContentException extends OrizuruConsumerException {
 
 	private static final long serialVersionUID = 1L;
 
-	public HandleMessageException(Throwable cause) {
-		super("Failed to handle message", cause);
-	}
-
-	public HandleMessageException(String message, Throwable cause) {
-		super(String.format("Failed to handle message: %s", message), cause);
+	public DecodeMessageContentException(Throwable cause) {
+		super("Failed to decode message content", cause);
 	}
 
 }
