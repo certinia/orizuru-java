@@ -39,14 +39,12 @@ import java.io.InputStream;
 import java.util.Base64;
 
 import org.apache.avro.generic.GenericContainer;
-import org.codehaus.jackson.JsonParseException;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.financialforce.orizuru.exception.OrizuruException;
-import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageContentException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageException;
@@ -67,7 +65,7 @@ public class AbstractConsumerTest {
 	public void getQueueName_shouldReturnTheQueueName() {
 
 		// given
-		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+		IConsumer consumer = new Consumer(QUEUE_NAME);
 
 		// when
 		String queueName = consumer.getQueueName();
@@ -77,25 +75,12 @@ public class AbstractConsumerTest {
 	}
 
 	@Test
-	public void getOutgoingMessagePublisher_shouldReturnNull() {
-
-		// given
-		Consumer consumer = new Consumer(QUEUE_NAME, null);
-
-		// when
-		IPublisher<GenericContainer> publisher = consumer.getOutgoingMessagePublisher();
-
-		// then
-		assertNull(publisher);
-
-	}
-
-	@Test
 	public void consume_callsThePublishMethodIfAPublisherIsDefined() throws Exception {
 
 		// given
 		IPublisher<GenericContainer> publisher = mock(IPublisher.class);
-		IConsumer consumer = new Consumer(QUEUE_NAME, publisher);
+		Consumer consumer = new Consumer(QUEUE_NAME);
+		consumer.setPublisher(publisher);
 
 		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
 
@@ -113,7 +98,7 @@ public class AbstractConsumerTest {
 		// given
 		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
 
-		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+		IConsumer consumer = new Consumer(QUEUE_NAME);
 
 		// when
 		byte[] outgoingMessage = consumer.consume(body);
@@ -127,7 +112,7 @@ public class AbstractConsumerTest {
 	public void consume_throwsDecodeTransportExceptionForNullBody() throws OrizuruException {
 
 		// given
-		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+		IConsumer consumer = new Consumer(QUEUE_NAME);
 
 		// expect
 		exception.expect(DecodeTransportException.class);
@@ -145,7 +130,7 @@ public class AbstractConsumerTest {
 		// given
 		byte[] body = Base64.getDecoder().decode(getFileContents("invalidContextSchema.txt"));
 
-		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+		IConsumer consumer = new Consumer(QUEUE_NAME);
 
 		// expect
 		exception.expect(DecodeContextException.class);
@@ -162,7 +147,7 @@ public class AbstractConsumerTest {
 		// given
 		byte[] body = Base64.getDecoder().decode(getFileContents("invalidMessageSchema.txt"));
 
-		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+		IConsumer consumer = new Consumer(QUEUE_NAME);
 
 		// expect
 		exception.expect(DecodeMessageException.class);
@@ -179,7 +164,7 @@ public class AbstractConsumerTest {
 		// given
 		byte[] body = Base64.getDecoder().decode(getFileContents("invalidMessageContent.txt"));
 
-		IConsumer consumer = new Consumer(QUEUE_NAME, null);
+		IConsumer consumer = new Consumer(QUEUE_NAME);
 
 		// expect
 		exception.expect(DecodeMessageContentException.class);
@@ -196,7 +181,7 @@ public class AbstractConsumerTest {
 		// given
 		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
 
-		IConsumer consumer = new ErrorConsumer(QUEUE_NAME, null);
+		IConsumer consumer = new ErrorConsumer(QUEUE_NAME);
 
 		// expect
 		exception.expect(HandleMessageException.class);
@@ -214,7 +199,7 @@ public class AbstractConsumerTest {
 		// given
 		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
 
-		IConsumer consumer = new ErrorConsumer2(QUEUE_NAME, null);
+		IConsumer consumer = new ErrorConsumer2(QUEUE_NAME);
 
 		// expect
 		exception.expect(HandleMessageException.class);
@@ -255,21 +240,25 @@ public class AbstractConsumerTest {
 
 	private class Consumer extends AbstractConsumer<GenericContainer, GenericContainer> {
 
-		public Consumer(String queueName, IPublisher<GenericContainer> publisher) {
-			super(queueName, publisher);
+		public Consumer(String queueName) {
+			super(queueName);
 		}
 
 		@Override
 		public GenericContainer handleMessage(Context context, GenericContainer input) throws HandleMessageException {
 			return null;
 		}
+		
+		public void setPublisher(IPublisher<GenericContainer> publisher) {
+			this.publisher = publisher;
+		}
 
 	}
 
 	private class ErrorConsumer extends AbstractConsumer<GenericContainer, GenericContainer> {
 
-		public ErrorConsumer(String queueName, IPublisher<GenericContainer> publisher) {
-			super(queueName, publisher);
+		public ErrorConsumer(String queueName) {
+			super(queueName);
 		}
 
 		@Override
@@ -281,8 +270,8 @@ public class AbstractConsumerTest {
 	
 	private class ErrorConsumer2 extends AbstractConsumer<GenericContainer, GenericContainer> {
 
-		public ErrorConsumer2(String queueName, IPublisher<GenericContainer> publisher) {
-			super(queueName, publisher);
+		public ErrorConsumer2(String queueName) {
+			super(queueName);
 		}
 
 		@Override

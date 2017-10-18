@@ -50,7 +50,7 @@ import com.financialforce.orizuru.message.Message;
  * AbstractConsumer
  * 
  * <p>
- * Handles a RabbitMQ message containing an FinancialForce Orizuru Avro Transport schema.
+ * Handles a message containing an FinancialForce Orizuru Avro Transport schema.
  * 
  * <p>
  * The Transport schema is in the form:
@@ -75,12 +75,12 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 
 	private static Schema transportSchema = Transport.getClassSchema();
 
-	private IPublisher<O> publisher = null;
+	protected IPublisher<O> publisher = null;
+	
 	private String queueName = null;
 
-	public AbstractConsumer(String queueName, IPublisher<O> publisher) {
+	public AbstractConsumer(String queueName) {
 		this.queueName = queueName;
-		this.publisher = publisher;
 	}
 
 	@Override
@@ -110,10 +110,6 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 	@Override
 	public String getQueueName() {
 		return queueName;
-	}
-
-	public IPublisher<O> getOutgoingMessagePublisher() {
-		return publisher;
 	}
 
 	// private methods

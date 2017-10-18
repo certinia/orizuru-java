@@ -46,7 +46,7 @@ import com.financialforce.orizuru.message.Message;
 /**
  * AbstractPublisher
  * <p>
- * Sends a RabbitMQ message containing an FinancialForce Orizuru Avro Transport schema.
+ * Sends a message containing an FinancialForce Orizuru Avro Transport schema.
  * <p>
  * The Transport schema is in the form:
  * <p>
@@ -69,7 +69,7 @@ import com.financialforce.orizuru.message.Message;
  */
 public abstract class AbstractPublisher<O extends GenericContainer> implements IPublisher<O> {
 
-	private String queueName;
+	protected String queueName;
 
 	public AbstractPublisher(String queueName) {
 		this.queueName = queueName;
