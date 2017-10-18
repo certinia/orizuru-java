@@ -1,4 +1,20 @@
 {
+	"beautify.language": {
+		"js": {
+			"type": [
+				"javascript",
+				"json"
+			],
+			"filename": [
+				".jsbeautifyrc"
+			]
+		},
+		"html": [
+			"htm",
+			"html",
+			"xml"
+		]
+	},
 	"editor.detectIndentation": false,
 	"editor.formatOnSave": true,
 	"editor.insertSpaces": false,
