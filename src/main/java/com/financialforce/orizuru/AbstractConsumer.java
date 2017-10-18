@@ -50,7 +50,7 @@ import com.financialforce.orizuru.message.Message;
  * AbstractConsumer
  * 
  * <p>
- * Handles a message containing an FinancialForce Orizuru Avro Transport schema.
+ * Handles a message containing a FinancialForce Orizuru Avro Transport schema.
  * 
  * <p>
  * The Transport schema is in the form:

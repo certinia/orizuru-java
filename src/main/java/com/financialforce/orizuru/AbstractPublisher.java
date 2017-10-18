@@ -46,7 +46,7 @@ import com.financialforce.orizuru.message.Message;
 /**
  * AbstractPublisher
  * <p>
- * Sends a message containing an FinancialForce Orizuru Avro Transport schema.
+ * Sends a message containing a FinancialForce Orizuru Avro Transport schema.
  * <p>
  * The Transport schema is in the form:
  * <p>
