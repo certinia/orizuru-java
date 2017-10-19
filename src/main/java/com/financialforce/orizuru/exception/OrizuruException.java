@@ -26,7 +26,12 @@
 
 package com.financialforce.orizuru.exception;
 
-public class OrizuruException extends Exception {
+/**
+ * {@link OrizuruException}
+ * <p>
+ * Base exception for all Orizuru exceptions.
+ */
+public abstract class OrizuruException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 

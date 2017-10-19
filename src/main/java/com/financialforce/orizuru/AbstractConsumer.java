@@ -47,7 +47,7 @@ import com.financialforce.orizuru.message.Context;
 import com.financialforce.orizuru.message.Message;
 
 /**
- * AbstractConsumer
+ * {@link AbstractConsumer}
  * 
  * <p>
  * Handles a message containing a FinancialForce Orizuru Avro Transport schema.
@@ -83,6 +83,9 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 		this.queueName = queueName;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.financialforce.orizuru.interfaces.IConsumer#consume(byte[])
+	 */
 	@Override
 	public byte[] consume(byte[] body) throws OrizuruException {
 

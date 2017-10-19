@@ -26,8 +26,16 @@
 
 package com.financialforce.orizuru.interfaces;
 
+/**
+ * IQueueable
+ * <p>
+ * Interface to provide the name of a Queue.
+ */
 public interface IQueueable {
 
+	/**
+	 * @return the queueName
+	 */
 	String getQueueName();
 
 }

@@ -28,6 +28,11 @@ package com.financialforce.orizuru.exception.publisher.encode;
 
 import com.financialforce.orizuru.exception.publisher.OrizuruPublisherException;
 
+/**
+ * {@link EncodeTransportException}
+ * <p>
+ * Exception thrown when encoding the FinancialForce Orizuru Avro Transport schema fails.
+ */
 public class EncodeTransportException extends OrizuruPublisherException {
 
 	private static final long serialVersionUID = 1L;

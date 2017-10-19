@@ -31,8 +31,23 @@ import org.apache.avro.generic.GenericContainer;
 import com.financialforce.orizuru.exception.OrizuruException;
 import com.financialforce.orizuru.message.Context;
 
+/**
+ * {@link IPublisher}
+ * <p>
+ * Interface to allow the publication of Avro messages.
+ * 
+ * @param <O> the type of the message content to publish
+ */
 public interface IPublisher<O extends GenericContainer> extends IQueueable {
 
+	/**
+	 * Publishes the the given context and output
+	 * 
+	 * @param context The FinancialForce Orizuru Avro Context part of the Transport schema.
+	 * @param output The type of message to be published.
+	 * @return A byte array containing the  FinancialForce Orizuru Avro Transport message.
+	 * @throws OrizuruException Exception throw when publishing a message fails.
+	 */
 	byte[] publish(Context context, O output) throws OrizuruException;
 
 }

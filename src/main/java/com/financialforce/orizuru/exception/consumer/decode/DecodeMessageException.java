@@ -28,6 +28,11 @@ package com.financialforce.orizuru.exception.consumer.decode;
 
 import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 
+/**
+ * {@link DecodeMessageException}
+ * <p>
+ * Exception thrown when decoding the message from the FinancialForce Orizuru Avro Transport schema fails.
+ */
 public class DecodeMessageException extends OrizuruConsumerException {
 
 	private static final long serialVersionUID = 1L;
