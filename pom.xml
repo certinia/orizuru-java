@@ -6,6 +6,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
+	<name>Orizuru Java</name>
+	
 	<properties>
 		<java.version>1.8</java.version>
 		<jdkVersion>1.8</jdkVersion>
@@ -16,6 +18,7 @@
 		<maven.checkstyle.version>2.17</maven.checkstyle.version>
 		<maven.compiler.version>3.7.0</maven.compiler.version>
 		<maven.jacoco.version>0.7.9</maven.jacoco.version>
+		<maven.javadoc.version>3.0.0-M1</maven.javadoc.version>
 		<mockito.version>2.8.47</mockito.version>
 	</properties>
 
@@ -198,6 +201,17 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven.javadoc.version}</version>
+				<configuration>
+					<name>Testing</name>
+					<reportOutputDirectory>doc</reportOutputDirectory>
+					<destDir>doc</destDir>
+				</configuration>
 			</plugin>
 
 		</plugins>
