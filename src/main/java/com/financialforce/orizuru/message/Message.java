@@ -30,28 +30,51 @@ import java.nio.ByteBuffer;
 
 import org.apache.avro.Schema;
 
+/**
+ * {@link Message}
+ * <p>
+ * Wraps the message part of the FinancialForce Orizuru Avro Transport schema.
+ */
 public class Message {
 
 	private Schema schema;
 	private byte[] data;
 
+	/**
+	 * Constructs an Avro message containing the schema and the message data.
+	 * 
+	 * @param schema The FinancialForce Orizuru Avro Message schema.
+	 * @param data The FinancialForce Orizuru Avro Message data.
+	 */
 	public Message(Schema schema, byte[] data) {
 		this.schema = schema;
 		this.data = data;
 	}
 
+	/**
+	 * @return the schema
+	 */
 	public Schema getSchema() {
 		return schema;
 	}
 
+	/**
+	 * @return the data
+	 */
 	public byte[] getData() {
 		return data;
 	}
 
+	/**
+	 * @return the schema string
+	 */
 	public CharSequence getSchemaStr() {
 		return schema.toString();
 	}
 
+	/**
+	 * @return the data as a bytebuffer
+	 */
 	public ByteBuffer getDataBuffer() {
 		return ByteBuffer.wrap(data);
 	}

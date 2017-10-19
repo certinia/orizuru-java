@@ -28,6 +28,11 @@ package com.financialforce.orizuru.exception.publisher;
 
 import com.financialforce.orizuru.exception.OrizuruException;
 
+/**
+ * {@link OrizuruPublisherException}
+ * <p>
+ * Base exception for all Orizuru exceptions that arise when publishing a message.
+ */
 public class OrizuruPublisherException extends OrizuruException {
 
 	private static final long serialVersionUID = 1L;

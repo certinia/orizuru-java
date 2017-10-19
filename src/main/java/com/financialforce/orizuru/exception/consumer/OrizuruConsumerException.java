@@ -28,6 +28,11 @@ package com.financialforce.orizuru.exception.consumer;
 
 import com.financialforce.orizuru.exception.OrizuruException;
 
+/**
+ * {@link OrizuruConsumerException}
+ * <p>
+ * Base exception for all Orizuru exceptions that arise when consuming a message.
+ */
 public class OrizuruConsumerException extends OrizuruException {
 
 	private static final long serialVersionUID = 1L;

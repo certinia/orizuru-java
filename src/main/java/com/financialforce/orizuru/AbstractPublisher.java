@@ -44,12 +44,11 @@ import com.financialforce.orizuru.message.Context;
 import com.financialforce.orizuru.message.Message;
 
 /**
- * AbstractPublisher
+ * {@link AbstractPublisher}
  * <p>
  * Sends a message containing a FinancialForce Orizuru Avro Transport schema.
  * <p>
  * The Transport schema is in the form:
- * <p>
  * 
  * <pre>
  * <code>
@@ -75,6 +74,10 @@ public abstract class AbstractPublisher<O extends GenericContainer> implements I
 		this.queueName = queueName;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.financialforce.orizuru.interfaces.IPublisher#publish(com.financialforce.orizuru.message.Context, org.apache.avro.generic.GenericContainer)
+	 */
+	@Override
 	public byte[] publish(Context context, O message) throws OrizuruPublisherException {
 
 		try {

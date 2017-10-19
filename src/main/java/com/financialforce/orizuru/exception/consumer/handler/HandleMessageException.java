@@ -28,6 +28,15 @@ package com.financialforce.orizuru.exception.consumer.handler;
 
 import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 
+/**
+ * {@link HandleMessageException}
+ * <p>
+ * Base exception for exceptions thrown when handling the message.
+ * <p>
+ * This exception type is thrown, after the FinancialForce Orizuru Avro
+ * Transport schema has been successfully decoded, when there is a problem
+ * handling the message.
+ */
 public class HandleMessageException extends OrizuruConsumerException {
 
 	private static final long serialVersionUID = 1L;
