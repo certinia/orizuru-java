@@ -4,4 +4,4 @@ Orizuru-Java is a transport library for the [Orizuru](https://www.npmjs.com/pack
 
 ## API Docs
 
-Click to view [JSDoc API documentation](http://htmlpreview.github.io/?https://github.com/financialforcedev/orizuru-java/blob/feature/RESEARCH-852-split-out-orizuru-java/doc/index.html).
+Click to view [JSDoc API documentation](http://htmlpreview.github.io/?https://github.com/financialforcedev/orizuru-java/blob/master/doc/index.html).
