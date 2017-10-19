@@ -218,6 +218,7 @@
 				<configuration>
 					<reportOutputDirectory>doc</reportOutputDirectory>
 					<destDir>doc</destDir>
+					<notimestamp>true</notimestamp>
 				</configuration>
 			</plugin>
 
