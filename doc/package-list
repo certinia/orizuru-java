@@ -7,3 +7,4 @@ com.financialforce.orizuru.exception.publisher
 com.financialforce.orizuru.exception.publisher.encode
 com.financialforce.orizuru.interfaces
 com.financialforce.orizuru.message
+com.financialforce.orizuru.transport
