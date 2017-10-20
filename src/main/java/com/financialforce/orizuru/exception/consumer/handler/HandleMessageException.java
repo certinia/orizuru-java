@@ -29,8 +29,6 @@ package com.financialforce.orizuru.exception.consumer.handler;
 import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 
 /**
- * {@link HandleMessageException}
- * <p>
  * Base exception for exceptions thrown when handling the message.
  * <p>
  * This exception type is thrown, after the FinancialForce Orizuru Avro

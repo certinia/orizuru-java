@@ -29,8 +29,6 @@ package com.financialforce.orizuru.interfaces;
 import com.financialforce.orizuru.exception.OrizuruException;
 
 /**
- * {@link IConsumer}
- * <p>
  * Interface to allow the consumption of Avro messages.
  */
 public interface IConsumer extends IQueueable {

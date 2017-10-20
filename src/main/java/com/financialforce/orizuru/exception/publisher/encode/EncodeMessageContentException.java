@@ -29,8 +29,6 @@ package com.financialforce.orizuru.exception.publisher.encode;
 import com.financialforce.orizuru.exception.publisher.OrizuruPublisherException;
 
 /**
- * {@link EncodeMessageContentException}
- * <p>
  * Exception thrown when encoding the message content for the FinancialForce Orizuru Avro Transport schema fails.
  */
 public class EncodeMessageContentException extends OrizuruPublisherException {

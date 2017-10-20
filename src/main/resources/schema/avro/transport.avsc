@@ -1,5 +1,5 @@
 {
-	"namespace": "com.financialforce.orizuru",
+	"namespace": "com.financialforce.orizuru.transport",
 	"name": "Transport",
 	"type": "record",
 	"fields": [

@@ -42,10 +42,9 @@ import com.financialforce.orizuru.exception.publisher.encode.EncodeTransportExce
 import com.financialforce.orizuru.interfaces.IPublisher;
 import com.financialforce.orizuru.message.Context;
 import com.financialforce.orizuru.message.Message;
+import com.financialforce.orizuru.transport.Transport;
 
 /**
- * {@link AbstractPublisher}
- * <p>
  * Sends a message containing a FinancialForce Orizuru Avro Transport schema.
  * <p>
  * The Transport schema is in the form:
