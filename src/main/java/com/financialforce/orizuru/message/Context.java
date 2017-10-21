@@ -29,8 +29,6 @@ package com.financialforce.orizuru.message;
 import org.apache.avro.Schema;
 
 /**
- * {@link Context}
- * <p>
  * Wraps the context part of the FinancialForce Orizuru Avro Transport schema.
  */
 public class Context extends Message {

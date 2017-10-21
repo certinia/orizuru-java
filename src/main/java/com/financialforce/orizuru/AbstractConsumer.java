@@ -45,11 +45,9 @@ import com.financialforce.orizuru.interfaces.IConsumer;
 import com.financialforce.orizuru.interfaces.IPublisher;
 import com.financialforce.orizuru.message.Context;
 import com.financialforce.orizuru.message.Message;
+import com.financialforce.orizuru.transport.Transport;
 
 /**
- * {@link AbstractConsumer}
- * 
- * <p>
  * Handles a message containing a FinancialForce Orizuru Avro Transport schema.
  * 
  * <p>
@@ -76,7 +74,7 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 	private static Schema transportSchema = Transport.getClassSchema();
 
 	protected IPublisher<O> publisher = null;
-	
+
 	private String queueName = null;
 
 	public AbstractConsumer(String queueName) {
@@ -170,7 +168,7 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 	private I decodeIncomingMessage(Message incomingMessage) throws DecodeMessageContentException {
 
 		try {
-		
+
 			DatumReader<I> messageDatumReader = new SpecificDatumReader<I>(incomingMessage.getSchema());
 			BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(incomingMessage.getData(), null);
 			return messageDatumReader.read(null, decoder);

@@ -32,8 +32,6 @@ import com.financialforce.orizuru.exception.OrizuruException;
 import com.financialforce.orizuru.message.Context;
 
 /**
- * {@link IPublisher}
- * <p>
  * Interface to allow the publication of Avro messages.
  * 
  * @param <O> the type of the message content to publish

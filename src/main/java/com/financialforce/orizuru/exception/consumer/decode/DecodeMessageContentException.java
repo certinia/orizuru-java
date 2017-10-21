@@ -29,8 +29,6 @@ package com.financialforce.orizuru.exception.consumer.decode;
 import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 
 /**
- * {@link DecodeMessageContentException}
- * <p>
  * Exception thrown when decoding the message content from the FinancialForce Orizuru Avro Transport schema fails.
  */
 public class DecodeMessageContentException extends OrizuruConsumerException {

@@ -27,8 +27,6 @@
 package com.financialforce.orizuru.exception;
 
 /**
- * {@link OrizuruException}
- * <p>
  * Base exception for all Orizuru exceptions.
  */
 public abstract class OrizuruException extends Exception {

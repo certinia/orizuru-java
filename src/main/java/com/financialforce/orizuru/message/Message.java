@@ -31,8 +31,6 @@ import java.nio.ByteBuffer;
 import org.apache.avro.Schema;
 
 /**
- * {@link Message}
- * <p>
  * Wraps the message part of the FinancialForce Orizuru Avro Transport schema.
  */
 public class Message {

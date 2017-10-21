@@ -29,8 +29,6 @@ package com.financialforce.orizuru.exception.publisher;
 import com.financialforce.orizuru.exception.OrizuruException;
 
 /**
- * {@link OrizuruPublisherException}
- * <p>
  * Base exception for all Orizuru exceptions that arise when publishing a message.
  */
 public class OrizuruPublisherException extends OrizuruException {
@@ -44,5 +42,5 @@ public class OrizuruPublisherException extends OrizuruException {
 	public OrizuruPublisherException(String message, Throwable cause) {
 		super(String.format("Failed to publish message: %s", message), cause);
 	}
-	
+
 }
