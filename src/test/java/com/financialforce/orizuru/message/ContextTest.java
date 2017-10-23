@@ -39,7 +39,7 @@ public class ContextTest {
 	public final ExpectedException exception = ExpectedException.none();
 
 	@Test
-	public void decodeContextFromTransport_shouldThrowADecodeContextExceptionsIfTheTransportIsNull() throws Exception {
+	public void decodeFromTransport_shouldThrowADecodeContextExceptionsIfTheTransportIsNull() throws Exception {
 
 		// expect
 		exception.expect(DecodeContextException.class);
@@ -50,7 +50,7 @@ public class ContextTest {
 		Context context = new Context();
 
 		// when
-		context.decodeMessageFromTransport(null);
+		context.decodeFromTransport(null);
 
 	}
 

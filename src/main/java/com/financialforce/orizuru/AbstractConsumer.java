@@ -86,10 +86,10 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 		Transport transport = decodeTransport(body);
 
 		Context context = new Context();
-		context.decodeMessageFromTransport(transport);
+		context.decodeFromTransport(transport);
 
 		Message incomingMessage = new Message();
-		incomingMessage.decodeMessageFromTransport(transport);
+		incomingMessage.decodeFromTransport(transport);
 
 		I input = incomingMessage.decode();
 

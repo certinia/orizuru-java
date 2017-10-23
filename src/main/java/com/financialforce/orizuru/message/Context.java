@@ -53,7 +53,7 @@ public class Context extends Message {
 	 * @throws OrizuruConsumerException Exception thrown if decoding the context fails.
 	 */
 	@Override
-	public void decodeMessageFromTransport(Transport input) throws OrizuruConsumerException {
+	public void decodeFromTransport(Transport input) throws OrizuruConsumerException {
 
 		try {
 

@@ -88,7 +88,7 @@ public class MessageTest {
 	}
 
 	@Test
-	public void decodeMessageFromTransport_shouldThrowADecodeMessageExceptionIfTheTransportIsNull() throws Exception {
+	public void decodeFromTransport_shouldThrowADecodeMessageExceptionIfTheTransportIsNull() throws Exception {
 
 		// expect
 		exception.expect(DecodeMessageException.class);
@@ -99,12 +99,12 @@ public class MessageTest {
 		Message message = new Message();
 
 		// when
-		message.decodeMessageFromTransport(null);
+		message.decodeFromTransport(null);
 
 	}
 
 	@Test
-	public void decodeMessageFromTransport_shouldThrowADecodeMessageExceptionWithAClassNotFoundExceptionIfTheMessageSchemaNameClassDoesNotExist()
+	public void decodeFromTransport_shouldThrowADecodeMessageExceptionWithAClassNotFoundExceptionIfTheMessageSchemaNameClassDoesNotExist()
 			throws Exception {
 
 		// expect
@@ -119,12 +119,12 @@ public class MessageTest {
 		Message message = new Message();
 
 		// when
-		message.decodeMessageFromTransport(transport);
+		message.decodeFromTransport(transport);
 
 	}
 
 	@Test
-	public void decodeMessageFromTransport_shouldDecodeTheMessage() throws Exception {
+	public void decodeFromTransport_shouldDecodeTheMessage() throws Exception {
 
 		// given
 		ByteBuffer expectedMessage = ByteBuffer.wrap("{\"name\":\"testName\"}".getBytes());
@@ -136,7 +136,7 @@ public class MessageTest {
 		Message message = new Message();
 
 		// when
-		message.decodeMessageFromTransport(transport);
+		message.decodeFromTransport(transport);
 
 		// then
 		assertEquals(expectedMessage, message.getDataBuffer());

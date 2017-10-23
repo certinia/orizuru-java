@@ -105,7 +105,7 @@ public class Message {
 	 * @param input The FinancialForce Orizuru Avro Transport message from which to decode the message.
 	 * @throws OrizuruConsumerException Exception thrown if decoding the message fails.
 	 */
-	public void decodeMessageFromTransport(Transport input) throws OrizuruConsumerException {
+	public void decodeFromTransport(Transport input) throws OrizuruConsumerException {
 
 		try {
 
