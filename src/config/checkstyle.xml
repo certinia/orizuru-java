@@ -158,4 +158,7 @@
 		<module name="CommentsIndentation" />
 		<module name="UnusedImports" />
 	</module>
+
+	<module name="NewlineAtEndOfFile" />
+
 </module>
