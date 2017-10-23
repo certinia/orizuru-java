@@ -18,6 +18,12 @@
     catch(err) {
     }
 //-->
+var methods = {"i0":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 </script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -69,15 +75,15 @@
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#fields.inherited.from.class.com.financialforce.orizuru.message.Message">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.com.financialforce.orizuru.message.Message">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.top">
@@ -117,6 +123,21 @@ extends <a href="../../../../com/financialforce/orizuru/message/Message.html" ti
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="fields.inherited.from.class.com.financialforce.orizuru.message.Message">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;com.financialforce.orizuru.message.<a href="../../../../com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></h3>
+<code><a href="../../../../com/financialforce/orizuru/message/Message.html#data">data</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#schema">schema</a></code></li>
+</ul>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.summary">
@@ -129,9 +150,8 @@ extends <a href="../../../../com/financialforce/orizuru/message/Message.html" ti
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Context.html#Context-org.apache.avro.Schema-byte:A-">Context</a></span>(org.apache.avro.Schema&nbsp;schema,
-       byte[]&nbsp;data)</code>
-<div class="block">Constructs an Avro context containing the schema and the context data.</div>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Context.html#Context--">Context</a></span>()</code>
+<div class="block">Constructs a new empty Avro context.</div>
 </td>
 </tr>
 </table>
@@ -143,12 +163,25 @@ extends <a href="../../../../com/financialforce/orizuru/message/Message.html" ti
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Context.html#decodeMessageFromTransport-com.financialforce.orizuru.transport.Transport-">decodeMessageFromTransport</a></span>(<a href="../../../../com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a>&nbsp;input)</code>
+<div class="block">Decode the context from the transport.</div>
+</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.financialforce.orizuru.message.Message">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.financialforce.orizuru.message.<a href="../../../../com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></h3>
-<code><a href="../../../../com/financialforce/orizuru/message/Message.html#getData--">getData</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#getDataBuffer--">getDataBuffer</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#getSchema--">getSchema</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#getSchemaStr--">getSchemaStr</a></code></li>
+<code><a href="../../../../com/financialforce/orizuru/message/Message.html#decode--">decode</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#encode-O-">encode</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#getData--">getData</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#getDataBuffer--">getDataBuffer</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#getSchema--">getSchema</a>, <a href="../../../../com/financialforce/orizuru/message/Message.html#getSchemaName--">getSchemaName</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -171,19 +204,40 @@ extends <a href="../../../../com/financialforce/orizuru/message/Message.html" ti
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="Context-org.apache.avro.Schema-byte:A-">
+<a name="Context--">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Context</h4>
-<pre>public&nbsp;Context(org.apache.avro.Schema&nbsp;schema,
-               byte[]&nbsp;data)</pre>
-<div class="block">Constructs an Avro context containing the schema and the context data.</div>
+<pre>public&nbsp;Context()</pre>
+<div class="block">Constructs a new empty Avro context.</div>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="decodeMessageFromTransport-com.financialforce.orizuru.transport.Transport-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>decodeMessageFromTransport</h4>
+<pre>public&nbsp;void&nbsp;decodeMessageFromTransport(<a href="../../../../com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a>&nbsp;input)
+                                throws <a href="../../../../com/financialforce/orizuru/exception/consumer/OrizuruConsumerException.html" title="class in com.financialforce.orizuru.exception.consumer">OrizuruConsumerException</a></pre>
+<div class="block">Decode the context from the transport.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../com/financialforce/orizuru/message/Message.html#decodeMessageFromTransport-com.financialforce.orizuru.transport.Transport-">decodeMessageFromTransport</a></code>&nbsp;in class&nbsp;<code><a href="../../../../com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>schema</code> - The FinancialForce Orizuru Avro Context schema.</dd>
-<dd><code>data</code> - The FinancialForce Orizuru Avro Context data.</dd>
+<dd><code>input</code> - The FinancialForce Orizuru Avro Transport message from which to decode the context.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../../../com/financialforce/orizuru/exception/consumer/OrizuruConsumerException.html" title="class in com.financialforce.orizuru.exception.consumer">OrizuruConsumerException</a></code> - Exception thrown if decoding the context fails.</dd>
 </dl>
 </li>
 </ul>
@@ -241,15 +295,15 @@ extends <a href="../../../../com/financialforce/orizuru/message/Message.html" ti
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#fields.inherited.from.class.com.financialforce.orizuru.message.Message">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.com.financialforce.orizuru.message.Message">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.bottom">

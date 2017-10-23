@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -75,13 +75,13 @@ var activeTableTab = "activeTableTab";
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -122,6 +122,29 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected byte[]</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#data">data</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected org.apache.avro.Schema</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#schema">schema</a></span></code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.summary">
@@ -134,6 +157,11 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#Message--">Message</a></span>()</code>
+<div class="block">Constructs a new empty Avro message.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#Message-org.apache.avro.Schema-byte:A-">Message</a></span>(org.apache.avro.Schema&nbsp;schema,
        byte[]&nbsp;data)</code>
 <div class="block">Constructs an Avro message containing the schema and the message data.</div>
@@ -155,20 +183,38 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>&lt;I extends org.apache.avro.generic.GenericContainer&gt;<br>I</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#decode--">decode</a></span>()</code>
+<div class="block">Decode the message content.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#decodeMessageFromTransport-com.financialforce.orizuru.transport.Transport-">decodeMessageFromTransport</a></span>(<a href="../../../../com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a>&nbsp;input)</code>
+<div class="block">Decode the message from the transport.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>&lt;O extends org.apache.avro.generic.GenericContainer&gt;<br>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#encode-O-">encode</a></span>(O&nbsp;data)</code>
+<div class="block">Encode the message data provided.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>byte[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#getData--">getData</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#getDataBuffer--">getDataBuffer</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>org.apache.avro.Schema</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#getSchema--">getSchema</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#getSchemaStr--">getSchemaStr</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/message/Message.html#getSchemaName--">getSchemaName</a></span>()</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -186,12 +232,48 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="schema">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>schema</h4>
+<pre>protected&nbsp;org.apache.avro.Schema schema</pre>
+</li>
+</ul>
+<a name="data">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>data</h4>
+<pre>protected&nbsp;byte[] data</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.detail">
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
+<a name="Message--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>Message</h4>
+<pre>public&nbsp;Message()</pre>
+<div class="block">Constructs a new empty Avro message.</div>
+</li>
+</ul>
 <a name="Message-org.apache.avro.Schema-byte:A-">
 <!--   -->
 </a>
@@ -216,6 +298,63 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a name="encode-org.apache.avro.generic.GenericContainer-">
+<!--   -->
+</a><a name="encode-O-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>encode</h4>
+<pre>public&nbsp;&lt;O extends org.apache.avro.generic.GenericContainer&gt;&nbsp;void&nbsp;encode(O&nbsp;data)
+                                                                 throws <a href="../../../../com/financialforce/orizuru/exception/publisher/encode/EncodeMessageContentException.html" title="class in com.financialforce.orizuru.exception.publisher.encode">EncodeMessageContentException</a></pre>
+<div class="block">Encode the message data provided.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>O</code> - The type of the data to encode.</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>data</code> - The message data.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../../../com/financialforce/orizuru/exception/publisher/encode/EncodeMessageContentException.html" title="class in com.financialforce.orizuru.exception.publisher.encode">EncodeMessageContentException</a></code> - Exception thrown if encoding the message content fails.</dd>
+</dl>
+</li>
+</ul>
+<a name="decodeMessageFromTransport-com.financialforce.orizuru.transport.Transport-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>decodeMessageFromTransport</h4>
+<pre>public&nbsp;void&nbsp;decodeMessageFromTransport(<a href="../../../../com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a>&nbsp;input)
+                                throws <a href="../../../../com/financialforce/orizuru/exception/consumer/OrizuruConsumerException.html" title="class in com.financialforce.orizuru.exception.consumer">OrizuruConsumerException</a></pre>
+<div class="block">Decode the message from the transport.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>input</code> - The FinancialForce Orizuru Avro Transport message from which to decode the message.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../../../com/financialforce/orizuru/exception/consumer/OrizuruConsumerException.html" title="class in com.financialforce.orizuru.exception.consumer">OrizuruConsumerException</a></code> - Exception thrown if decoding the message fails.</dd>
+</dl>
+</li>
+</ul>
+<a name="decode--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>decode</h4>
+<pre>public&nbsp;&lt;I extends org.apache.avro.generic.GenericContainer&gt;&nbsp;I&nbsp;decode()
+                                                              throws <a href="../../../../com/financialforce/orizuru/exception/consumer/decode/DecodeMessageContentException.html" title="class in com.financialforce.orizuru.exception.consumer.decode">DecodeMessageContentException</a></pre>
+<div class="block">Decode the message content.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>I</code> - The type of the data that is decoded.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The message data.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../../../com/financialforce/orizuru/exception/consumer/decode/DecodeMessageContentException.html" title="class in com.financialforce.orizuru.exception.consumer.decode">DecodeMessageContentException</a></code> - Exception thrown if decoding the message content fails.</dd>
+</dl>
+</li>
+</ul>
 <a name="getSchema--">
 <!--   -->
 </a>
@@ -242,16 +381,16 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 </dl>
 </li>
 </ul>
-<a name="getSchemaStr--">
+<a name="getSchemaName--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getSchemaStr</h4>
-<pre>public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;getSchemaStr()</pre>
+<h4>getSchemaName</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;getSchemaName()</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the schema string</dd>
+<dd>the schema name</dd>
 </dl>
 </li>
 </ul>
@@ -322,13 +461,13 @@ extends <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

@@ -184,7 +184,7 @@ implements org.apache.avro.specific.SpecificRecord</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/transport/Transport.html#messageSchema">messageSchema</a></span></code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/transport/Transport.html#messageSchemaName">messageSchemaName</a></span></code>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
@@ -214,7 +214,7 @@ implements org.apache.avro.specific.SpecificRecord</pre>
 <tr class="rowColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/transport/Transport.html#Transport-java.lang.CharSequence-java.nio.ByteBuffer-java.lang.CharSequence-java.nio.ByteBuffer-">Transport</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;contextSchema,
          <a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>&nbsp;contextBuffer,
-         <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;messageSchema,
+         <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;messageSchemaName,
          <a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>&nbsp;messageBuffer)</code>
 <div class="block">All-args constructor.</div>
 </td>
@@ -262,8 +262,8 @@ implements org.apache.avro.specific.SpecificRecord</pre>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/transport/Transport.html#getMessageSchema--">getMessageSchema</a></span>()</code>
-<div class="block">Gets the value of the 'messageSchema' field.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/transport/Transport.html#getMessageSchemaName--">getMessageSchemaName</a></span>()</code>
+<div class="block">Gets the value of the 'messageSchemaName' field.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
@@ -317,8 +317,8 @@ implements org.apache.avro.specific.SpecificRecord</pre>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/transport/Transport.html#setMessageSchema-java.lang.CharSequence-">setMessageSchema</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;value)</code>
-<div class="block">Sets the value of the 'messageSchema' field.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/financialforce/orizuru/transport/Transport.html#setMessageSchemaName-java.lang.CharSequence-">setMessageSchemaName</a></span>(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;value)</code>
+<div class="block">Sets the value of the 'messageSchemaName' field.</div>
 </td>
 </tr>
 <tr id="i16" class="altColor">
@@ -385,14 +385,14 @@ public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffe
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
-<a name="messageSchema">
+<a name="messageSchemaName">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>messageSchema</h4>
+<h4>messageSchemaName</h4>
 <pre><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Deprecated.html?is-external=true" title="class or interface in java.lang">@Deprecated</a>
-public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a> messageSchema</pre>
+public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a> messageSchemaName</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
@@ -435,14 +435,14 @@ public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffe
 <h4>Transport</h4>
 <pre>public&nbsp;Transport(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;contextSchema,
                  <a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>&nbsp;contextBuffer,
-                 <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;messageSchema,
+                 <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;messageSchemaName,
                  <a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>&nbsp;messageBuffer)</pre>
 <div class="block">All-args constructor.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>contextSchema</code> - The new value for contextSchema</dd>
 <dd><code>contextBuffer</code> - The new value for contextBuffer</dd>
-<dd><code>messageSchema</code> - The new value for messageSchema</dd>
+<dd><code>messageSchemaName</code> - The new value for messageSchemaName</dd>
 <dd><code>messageBuffer</code> - The new value for messageBuffer</dd>
 </dl>
 </li>
@@ -566,28 +566,28 @@ public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffe
 </dl>
 </li>
 </ul>
-<a name="getMessageSchema--">
+<a name="getMessageSchemaName--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getMessageSchema</h4>
-<pre>public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;getMessageSchema()</pre>
-<div class="block">Gets the value of the 'messageSchema' field.</div>
+<h4>getMessageSchemaName</h4>
+<pre>public&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;getMessageSchemaName()</pre>
+<div class="block">Gets the value of the 'messageSchemaName' field.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The value of the 'messageSchema' field.</dd>
+<dd>The value of the 'messageSchemaName' field.</dd>
 </dl>
 </li>
 </ul>
-<a name="setMessageSchema-java.lang.CharSequence-">
+<a name="setMessageSchemaName-java.lang.CharSequence-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setMessageSchema</h4>
-<pre>public&nbsp;void&nbsp;setMessageSchema(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;value)</pre>
-<div class="block">Sets the value of the 'messageSchema' field.</div>
+<h4>setMessageSchemaName</h4>
+<pre>public&nbsp;void&nbsp;setMessageSchemaName(<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/CharSequence.html?is-external=true" title="class or interface in java.lang">CharSequence</a>&nbsp;value)</pre>
+<div class="block">Sets the value of the 'messageSchemaName' field.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>value</code> - the value to set.</dd>
