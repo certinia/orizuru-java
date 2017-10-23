@@ -33,11 +33,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
-
+import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericContainer;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
@@ -45,9 +41,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.financialforce.orizuru.exception.OrizuruException;
-import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
-import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageContentException;
-import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeTransportException;
 import com.financialforce.orizuru.exception.consumer.handler.HandleMessageException;
 import com.financialforce.orizuru.interfaces.IConsumer;
@@ -55,6 +48,8 @@ import com.financialforce.orizuru.interfaces.IPublisher;
 import com.financialforce.orizuru.message.Context;
 
 public class AbstractConsumerTest {
+
+	private static final String VALID_MESSAGE = "V{\"name\":\"test\",\"type\":\"record\",\"fields\":[]}{}tcom.financialforce.orizuru.AbstractConsumerTest$TestSchematestData";
 
 	private static final String QUEUE_NAME = "testQueue";
 
@@ -82,7 +77,7 @@ public class AbstractConsumerTest {
 		Consumer consumer = new Consumer(QUEUE_NAME);
 		consumer.setPublisher(publisher);
 
-		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
+		byte[] body = VALID_MESSAGE.getBytes();
 
 		// when
 		consumer.consume(body);
@@ -96,7 +91,7 @@ public class AbstractConsumerTest {
 	public void consume_shouldDecodeTheTransport() throws Exception {
 
 		// given
-		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
+		byte[] body = VALID_MESSAGE.getBytes();
 
 		IConsumer consumer = new Consumer(QUEUE_NAME);
 
@@ -111,13 +106,13 @@ public class AbstractConsumerTest {
 	@Test
 	public void consume_throwsDecodeTransportExceptionForNullBody() throws OrizuruException {
 
-		// given
-		IConsumer consumer = new Consumer(QUEUE_NAME);
-
 		// expect
 		exception.expect(DecodeTransportException.class);
 		exception.expectMessage("Failed to consume message: Failed to decode transport");
 		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
+
+		// given
+		IConsumer consumer = new Consumer(QUEUE_NAME);
 
 		// when
 		consumer.consume(null);
@@ -125,117 +120,52 @@ public class AbstractConsumerTest {
 	}
 
 	@Test
-	public void consume_throwsDecodeContextExceptionForInvalidContextSchema() throws Exception {
-
-		// given
-		byte[] body = Base64.getDecoder().decode(getFileContents("invalidContextSchema.txt"));
-
-		IConsumer consumer = new Consumer(QUEUE_NAME);
-
-		// expect
-		exception.expect(DecodeContextException.class);
-		exception.expectMessage("Failed to consume message: Failed to decode context");
-
-		// when
-		consumer.consume(body);
-
-	}
-	
-	@Test
-	public void consume_throwsDecodeMessageExceptionForInvalidMessageSchema() throws Exception {
-
-		// given
-		byte[] body = Base64.getDecoder().decode(getFileContents("invalidMessageSchema.txt"));
-
-		IConsumer consumer = new Consumer(QUEUE_NAME);
-
-		// expect
-		exception.expect(DecodeMessageException.class);
-		exception.expectMessage("Failed to consume message: Failed to decode message");
-
-		// when
-		consumer.consume(body);
-
-	}
-	
-	@Test
-	public void consume_throwsDecodeMessageContentExceptionForInvalidMessageContent() throws Exception {
-
-		// given
-		byte[] body = Base64.getDecoder().decode(getFileContents("invalidMessageContent.txt"));
-
-		IConsumer consumer = new Consumer(QUEUE_NAME);
-
-		// expect
-		exception.expect(DecodeMessageContentException.class);
-		exception.expectMessage("Failed to consume message: Failed to decode message");
-
-		// when
-		consumer.consume(body);
-
-	}
-
-	@Test
 	public void consume_throwsAHandleMessageExceptionForAnInvalidMessage() throws Exception {
-
-		// given
-		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
-
-		IConsumer consumer = new ErrorConsumer(QUEUE_NAME);
 
 		// expect
 		exception.expect(HandleMessageException.class);
 		exception.expectMessage("Failed to consume message: Failed to handle message");
 		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
+		// given
+		byte[] body = VALID_MESSAGE.getBytes();
+
+		IConsumer consumer = new ErrorConsumer(QUEUE_NAME);
+
 		// when
 		consumer.consume(body);
 
 	}
-	
+
 	@Test
 	public void consume_throwsAHandleMessageExceptionWithAnAlteredInvalidMessage() throws Exception {
-
-		// given
-		byte[] body = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
-
-		IConsumer consumer = new ErrorConsumer2(QUEUE_NAME);
 
 		// expect
 		exception.expect(HandleMessageException.class);
 		exception.expectMessage("Failed to consume message: Failed to handle message: test");
 		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
+		// given
+		byte[] body = VALID_MESSAGE.getBytes();
+
+		IConsumer consumer = new ErrorConsumer2(QUEUE_NAME);
+
 		// when
 		consumer.consume(body);
 
 	}
-	
-	private byte[] getFileContents(String fileName) throws IOException {
 
-		ByteArrayOutputStream output = null;
+	public static class TestSchema implements GenericContainer {
 
-		try {
-
-			InputStream input = getClass().getResourceAsStream(fileName);
-
-			output = new ByteArrayOutputStream();
-
-			byte[] buffer = new byte[8192];
-			int n = 0;
-			while (-1 != (n = input.read(buffer))) {
-				output.write(buffer, 0, n);
-			}
-
-			return output.toByteArray();
-
-		} catch (IOException ioe) {
-			if (output != null) {
-				output.close();
-			}
+		public TestSchema() {
 		}
-		
-		return null;
+
+		@Override
+		public Schema getSchema() {
+			return new Schema.Parser().parse(
+					"{\"type\":\"record\",\"name\":\"TestSchema\",\"namespace\":\"com.financialforce.orizuru.AbstractConsumerTest\",\"fields\":[]}");
+		}
+
 	}
 
 	private class Consumer extends AbstractConsumer<GenericContainer, GenericContainer> {
@@ -248,7 +178,7 @@ public class AbstractConsumerTest {
 		public GenericContainer handleMessage(Context context, GenericContainer input) throws HandleMessageException {
 			return null;
 		}
-		
+
 		public void setPublisher(IPublisher<GenericContainer> publisher) {
 			this.publisher = publisher;
 		}
@@ -267,7 +197,7 @@ public class AbstractConsumerTest {
 		}
 
 	}
-	
+
 	private class ErrorConsumer2 extends AbstractConsumer<GenericContainer, GenericContainer> {
 
 		public ErrorConsumer2(String queueName) {
