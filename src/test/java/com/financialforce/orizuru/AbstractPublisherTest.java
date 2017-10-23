@@ -26,16 +26,11 @@
 
 package com.financialforce.orizuru;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.Base64;
 
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
@@ -66,8 +61,8 @@ public class AbstractPublisherTest {
 	@Before
 	public void doBefore() {
 
-		schema = SchemaBuilder.record("TestSchema").namespace("com.financialforce.test").fields().name("testString")
-				.type().stringType().noDefault().endRecord();
+		schema = SchemaBuilder.record("TestSchema").namespace("com.financialforce.orizuru.AbstractConsumerTest")
+				.fields().name("testString").type().stringType().noDefault().endRecord();
 
 		publisher = new Publisher();
 	}
@@ -83,36 +78,7 @@ public class AbstractPublisherTest {
 	}
 
 	@Test
-	public void publish_shouldWriteTheTransport() throws Exception {
-
-		// given
-		byte[] expectedOutgoingMessage = Base64.getDecoder().decode(getFileContents("validTransport.txt"));
-
-		Context context = mock(Context.class);
-		when(context.getSchemaStr()).thenReturn("{\"name\":\"test\",\"type\":\"record\",\"fields\":[]}");
-		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("{}".getBytes()));
-
-		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
-		builder.set("testString", "testData");
-		Record record = builder.build();
-
-		// when
-		byte[] outgoingMessage = publisher.publish(context, record);
-		
-		System.out.println(Base64.getEncoder().encodeToString(outgoingMessage));
-
-		// then
-		assertArrayEquals(expectedOutgoingMessage, outgoingMessage);
-
-	}
-
-	@Test
-	public void publish_shouldThrowAnOrizuruPublisherExceptionForAnInvalidMessage() throws Exception {
-
-		// given
-		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
-		builder.set("testString", "testData");
-		Record record = builder.build();
+	public void publish_shouldThrowAnOrizuruPublisherExceptionForANullMessage() throws Exception {
 
 		// expect
 		exception.expect(OrizuruPublisherException.class);
@@ -120,75 +86,72 @@ public class AbstractPublisherTest {
 		exception.expectMessage("Failed to publish message");
 
 		// when
-		publisher.publish(null, record);
+		publisher.publish(null, null);
 
 	}
-	
+
 	@Test
-	public void publish_shouldThrowAnEncodeTransportExceptionForAnInvalidTransport() throws Exception {
+	public void publish_shouldThrowAnEncodeTransportExceptionForAnInvalidTransportMessage() throws Exception {
+
+		// expect
+		exception.expect(EncodeMessageContentException.class);
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(ClassCastException.class));
+		exception.expectMessage("Failed to publish message: Failed to encode message content");
 
 		// given
 		Context context = mock(Context.class);
-		when(context.getSchemaStr()).thenReturn(null);
-		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("contextBuffer".getBytes()));
+		when(context.getSchema())
+				.thenReturn(new Schema.Parser().parse("{\"name\":\"test\",\"type\":\"record\",\"fields\":[]}"));
+		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("{}".getBytes()));
 
 		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
-		builder.set("testString", "testData");
+		builder.set("testString", Boolean.TRUE);
 		Record record = builder.build();
+
+		// when
+		publisher.publish(context, record);
+
+	}
+
+	@Test
+	public void publish_shouldThrowAnEncodeTransportExceptionForAnInvalidTransportContext() throws Exception {
 
 		// expect
 		exception.expect(EncodeTransportException.class);
 		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 		exception.expectMessage("Failed to publish message: Failed to encode transport");
 
+		// given
+		Context context = mock(Context.class);
+		when(context.getSchema())
+				.thenReturn(new Schema.Parser().parse("{\"name\":\"test\",\"type\":\"record\",\"fields\":[]}"));
+		when(context.getDataBuffer()).thenReturn(null);
+
+		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
+		builder.set("testString", "testString");
+		Record record = builder.build();
+
 		// when
 		publisher.publish(context, record);
 
 	}
-	
+
 	@Test
-	public void publish_shouldThrowAnEncodeMessageContentExceptionForAnInvalidMessage() throws Exception {
+	public void publish_shouldPublishTheMessage() throws Exception {
 
 		// given
 		Context context = mock(Context.class);
-		when(context.getSchemaStr()).thenReturn("contextSchema");
-		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("contextBuffer".getBytes()));
+		when(context.getSchema())
+				.thenReturn(new Schema.Parser().parse("{\"name\":\"test\",\"type\":\"record\",\"fields\":[]}"));
+		when(context.getDataBuffer()).thenReturn(ByteBuffer.wrap("{}".getBytes()));
 
-		// expect
-		exception.expect(EncodeMessageContentException.class);
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
-		exception.expectMessage("Failed to publish message: Failed to encode message content");
+		GenericRecordBuilder builder = new GenericRecordBuilder(schema);
+		builder.set("testString", "test");
+		Record record = builder.build();
 
 		// when
-		publisher.publish(context, null);
+		publisher.publish(context, record);
 
-	}
-
-	private byte[] getFileContents(String fileName) throws IOException {
-
-		ByteArrayOutputStream output = null;
-
-		try {
-
-			InputStream input = getClass().getResourceAsStream(fileName);
-
-			output = new ByteArrayOutputStream();
-
-			byte[] buffer = new byte[8192];
-			int n = 0;
-			while (-1 != (n = input.read(buffer))) {
-				output.write(buffer, 0, n);
-			}
-
-			return output.toByteArray();
-
-		} catch (IOException ioe) {
-			if (output != null) {
-				output.close();
-			}
-		}
-		
-		return null;
 	}
 
 	private class Publisher extends AbstractPublisher<GenericContainer> {

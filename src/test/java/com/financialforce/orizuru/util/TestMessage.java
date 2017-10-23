@@ -24,50 +24,52 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **/
 
-package com.financialforce.orizuru.message;
+package com.financialforce.orizuru.util;
 
-import java.nio.ByteBuffer;
-
+import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Schema;
 
-import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
-import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
-import com.financialforce.orizuru.transport.Transport;
+public class TestMessage extends org.apache.avro.specific.SpecificRecordBase
+		implements org.apache.avro.specific.SpecificRecord {
 
-/**
- * Wraps the context part of the FinancialForce Orizuru Avro Transport schema.
- */
-public class Context extends Message {
+	private CharSequence name;
 
-	/**
-	 * Constructs a new empty Avro context.
-	 */
-	public Context() {
-		super();
+	public TestMessage() {
 	}
 
-	/**
-	 * Decode the context from the transport.
-	 * 
-	 * @param input The FinancialForce Orizuru Avro Transport message from which to decode the context.
-	 * @throws OrizuruConsumerException Exception thrown if decoding the context fails.
-	 */
 	@Override
-	public void decodeFromTransport(Transport input) throws OrizuruConsumerException {
+	public Schema getSchema() {
+		return new Schema.Parser().parse(
+				"{\"type\":\"record\",\"name\":\"TestMessage\",\"namespace\":\"com.financialforce.orizuru.util\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"}]}");
+	}
 
-		try {
+	public CharSequence getName() {
+		return name;
+	}
 
-			String contextSchemaStr = input.getContextSchema().toString();
-			Schema.Parser parser = new Schema.Parser();
-			this.schema = parser.parse(contextSchemaStr);
+	public void setName(CharSequence name) {
+		this.name = name;
+	}
 
-			ByteBuffer contextBuffer = input.getContextBuffer();
-			this.data = contextBuffer.array();
-
-		} catch (Exception ex) {
-			throw new DecodeContextException(ex);
+	@Override
+	public Object get(int field) {
+		switch (field) {
+			case 0:
+				return name;
+			default:
+				throw new AvroRuntimeException("Bad index");
 		}
+	}
 
+	@Override
+	public void put(int field, Object value) {
+		switch (field) {
+			case 0:
+				name = (CharSequence) value;
+				break;
+			default:
+				throw new AvroRuntimeException("Bad index");
+		}
 	}
 
 }

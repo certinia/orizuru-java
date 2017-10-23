@@ -26,8 +26,6 @@
 
 package com.financialforce.orizuru;
 
-import java.nio.ByteBuffer;
-
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericContainer;
 import org.apache.avro.io.BinaryDecoder;
@@ -36,9 +34,6 @@ import org.apache.avro.io.DecoderFactory;
 import org.apache.avro.specific.SpecificDatumReader;
 
 import com.financialforce.orizuru.exception.OrizuruException;
-import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
-import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageContentException;
-import com.financialforce.orizuru.exception.consumer.decode.DecodeMessageException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeTransportException;
 import com.financialforce.orizuru.exception.consumer.handler.HandleMessageException;
 import com.financialforce.orizuru.interfaces.IConsumer;
@@ -89,10 +84,14 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 
 		// Handle the input
 		Transport transport = decodeTransport(body);
-		Context context = decodeContext(transport);
 
-		Message incomingMessage = decodeMessage(transport);
-		I input = decodeIncomingMessage(incomingMessage);
+		Context context = new Context();
+		context.decodeFromTransport(transport);
+
+		Message incomingMessage = new Message();
+		incomingMessage.decodeFromTransport(transport);
+
+		I input = incomingMessage.decode();
 
 		// Handle the message
 		O outgoingMessage = handleMessage(context, input);
@@ -125,56 +124,6 @@ public abstract class AbstractConsumer<I extends GenericContainer, O extends Gen
 
 		} catch (Exception ex) {
 			throw new DecodeTransportException(ex);
-		}
-
-	}
-
-	private Context decodeContext(Transport input) throws DecodeContextException {
-
-		try {
-
-			String contextSchemaStr = input.getContextSchema().toString();
-			ByteBuffer contextBuffer = input.getContextBuffer();
-			byte[] data = contextBuffer.array();
-
-			Schema.Parser parser = new Schema.Parser();
-			Schema schema = parser.parse(contextSchemaStr);
-			return new Context(schema, data);
-
-		} catch (Exception ex) {
-			throw new DecodeContextException(ex);
-		}
-
-	}
-
-	private Message decodeMessage(Transport input) throws DecodeMessageException {
-
-		try {
-
-			String messageSchemaStr = input.getMessageSchema().toString();
-			ByteBuffer messageBuffer = input.getMessageBuffer();
-			byte[] data = messageBuffer.array();
-
-			Schema.Parser parser = new Schema.Parser();
-			Schema schema = parser.parse(messageSchemaStr);
-			return new Message(schema, data);
-
-		} catch (Exception ex) {
-			throw new DecodeMessageException(ex);
-		}
-
-	}
-
-	private I decodeIncomingMessage(Message incomingMessage) throws DecodeMessageContentException {
-
-		try {
-
-			DatumReader<I> messageDatumReader = new SpecificDatumReader<I>(incomingMessage.getSchema());
-			BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(incomingMessage.getData(), null);
-			return messageDatumReader.read(null, decoder);
-
-		} catch (Exception ex) {
-			throw new DecodeMessageContentException(ex);
 		}
 
 	}

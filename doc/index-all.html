@@ -112,9 +112,9 @@
 <dd>
 <div class="block">Clears the value of the 'messageBuffer' field.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#clearMessageSchema--">clearMessageSchema()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#clearMessageSchemaName--">clearMessageSchemaName()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
 <dd>
-<div class="block">Clears the value of the 'messageSchema' field.</div>
+<div class="block">Clears the value of the 'messageSchemaName' field.</div>
 </dd>
 <dt><a href="com/financialforce/orizuru/package-summary.html">com.financialforce.orizuru</a> - package com.financialforce.orizuru</dt>
 <dd>
@@ -153,7 +153,9 @@
 <div class="block">Orizuru message classes.</div>
 </dd>
 <dt><a href="com/financialforce/orizuru/transport/package-summary.html">com.financialforce.orizuru.transport</a> - package com.financialforce.orizuru.transport</dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Orizuru transport classes.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/AbstractConsumer.html#consume-byte:A-">consume(byte[])</a></span> - Method in class com.financialforce.orizuru.<a href="com/financialforce/orizuru/AbstractConsumer.html" title="class in com.financialforce.orizuru">AbstractConsumer</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/interfaces/IConsumer.html#consume-byte:A-">consume(byte[])</a></span> - Method in interface com.financialforce.orizuru.interfaces.<a href="com/financialforce/orizuru/interfaces/IConsumer.html" title="interface in com.financialforce.orizuru.interfaces">IConsumer</a></dt>
@@ -164,9 +166,9 @@
 <dd>
 <div class="block">Wraps the context part of the FinancialForce Orizuru Avro Transport schema.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Context.html#Context-org.apache.avro.Schema-byte:A-">Context(Schema, byte[])</a></span> - Constructor for class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Context.html" title="class in com.financialforce.orizuru.message">Context</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Context.html#Context--">Context()</a></span> - Constructor for class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Context.html" title="class in com.financialforce.orizuru.message">Context</a></dt>
 <dd>
-<div class="block">Constructs an Avro context containing the schema and the context data.</div>
+<div class="block">Constructs a new empty Avro context.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#contextBuffer">contextBuffer</a></span> - Variable in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
 <dd>
@@ -182,12 +184,26 @@
 </a>
 <h2 class="title">D</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#data">data</a></span> - Variable in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#decode--">decode()</a></span> - Method in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
+<dd>
+<div class="block">Decode the message content.</div>
+</dd>
 <dt><a href="com/financialforce/orizuru/exception/consumer/decode/DecodeContextException.html" title="class in com.financialforce.orizuru.exception.consumer.decode"><span class="typeNameLink">DecodeContextException</span></a> - Exception in <a href="com/financialforce/orizuru/exception/consumer/decode/package-summary.html">com.financialforce.orizuru.exception.consumer.decode</a></dt>
 <dd>
 <div class="block">Exception thrown when decoding the context from the FinancialForce Orizuru Avro Transport schema fails.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/exception/consumer/decode/DecodeContextException.html#DecodeContextException-java.lang.Throwable-">DecodeContextException(Throwable)</a></span> - Constructor for exception com.financialforce.orizuru.exception.consumer.decode.<a href="com/financialforce/orizuru/exception/consumer/decode/DecodeContextException.html" title="class in com.financialforce.orizuru.exception.consumer.decode">DecodeContextException</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Context.html#decodeFromTransport-com.financialforce.orizuru.transport.Transport-">decodeFromTransport(Transport)</a></span> - Method in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Context.html" title="class in com.financialforce.orizuru.message">Context</a></dt>
+<dd>
+<div class="block">Decode the context from the transport.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#decodeFromTransport-com.financialforce.orizuru.transport.Transport-">decodeFromTransport(Transport)</a></span> - Method in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
+<dd>
+<div class="block">Decode the message from the transport.</div>
+</dd>
 <dt><a href="com/financialforce/orizuru/exception/consumer/decode/DecodeMessageContentException.html" title="class in com.financialforce.orizuru.exception.consumer.decode"><span class="typeNameLink">DecodeMessageContentException</span></a> - Exception in <a href="com/financialforce/orizuru/exception/consumer/decode/package-summary.html">com.financialforce.orizuru.exception.consumer.decode</a></dt>
 <dd>
 <div class="block">Exception thrown when decoding the message content from the FinancialForce Orizuru Avro Transport schema fails.</div>
@@ -212,6 +228,10 @@
 </a>
 <h2 class="title">E</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#encode-O-">encode(O)</a></span> - Method in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
+<dd>
+<div class="block">Encode the message data provided.</div>
+</dd>
 <dt><a href="com/financialforce/orizuru/exception/publisher/encode/EncodeMessageContentException.html" title="class in com.financialforce.orizuru.exception.publisher.encode"><span class="typeNameLink">EncodeMessageContentException</span></a> - Exception in <a href="com/financialforce/orizuru/exception/publisher/encode/package-summary.html">com.financialforce.orizuru.exception.publisher.encode</a></dt>
 <dd>
 <div class="block">Exception thrown when encoding the message content for the FinancialForce Orizuru Avro Transport schema fails.</div>
@@ -262,13 +282,13 @@
 <dd>
 <div class="block">Gets the value of the 'messageBuffer' field.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#getMessageSchema--">getMessageSchema()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#getMessageSchemaName--">getMessageSchemaName()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
 <dd>
-<div class="block">Gets the value of the 'messageSchema' field.</div>
+<div class="block">Gets the value of the 'messageSchemaName' field.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#getMessageSchema--">getMessageSchema()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#getMessageSchemaName--">getMessageSchemaName()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
 <dd>
-<div class="block">Gets the value of the 'messageSchema' field.</div>
+<div class="block">Gets the value of the 'messageSchemaName' field.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/AbstractConsumer.html#getQueueName--">getQueueName()</a></span> - Method in class com.financialforce.orizuru.<a href="com/financialforce/orizuru/AbstractConsumer.html" title="class in com.financialforce.orizuru">AbstractConsumer</a></dt>
 <dd>&nbsp;</dd>
@@ -280,7 +300,7 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#getSchema--">getSchema()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#getSchemaStr--">getSchemaStr()</a></span> - Method in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#getSchemaName--">getSchemaName()</a></span> - Method in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a name="I:H">
@@ -310,9 +330,9 @@
 <dd>
 <div class="block">Checks whether the 'messageBuffer' field has been set.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#hasMessageSchema--">hasMessageSchema()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#hasMessageSchemaName--">hasMessageSchemaName()</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
 <dd>
-<div class="block">Checks whether the 'messageSchema' field has been set.</div>
+<div class="block">Checks whether the 'messageSchemaName' field has been set.</div>
 </dd>
 </dl>
 <a name="I:I">
@@ -342,6 +362,10 @@
 <dd>
 <div class="block">Wraps the message part of the FinancialForce Orizuru Avro Transport schema.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#Message--">Message()</a></span> - Constructor for class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
+<dd>
+<div class="block">Constructs a new empty Avro message.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#Message-org.apache.avro.Schema-byte:A-">Message(Schema, byte[])</a></span> - Constructor for class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
 <dd>
 <div class="block">Constructs an Avro message containing the schema and the message data.</div>
@@ -350,7 +374,7 @@
 <dd>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#messageSchema">messageSchema</a></span> - Variable in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#messageSchemaName">messageSchemaName</a></span> - Variable in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
 <dd>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </dd>
@@ -436,6 +460,8 @@
 </a>
 <h2 class="title">S</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/message/Message.html#schema">schema</a></span> - Variable in class com.financialforce.orizuru.message.<a href="com/financialforce/orizuru/message/Message.html" title="class in com.financialforce.orizuru.message">Message</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#SCHEMA:D">SCHEMA$</a></span> - Static variable in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#setContextBuffer-java.nio.ByteBuffer-">setContextBuffer(ByteBuffer)</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
@@ -462,13 +488,13 @@
 <dd>
 <div class="block">Sets the value of the 'messageBuffer' field.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#setMessageSchema-java.lang.CharSequence-">setMessageSchema(CharSequence)</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.Builder.html#setMessageSchemaName-java.lang.CharSequence-">setMessageSchemaName(CharSequence)</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.Builder.html" title="class in com.financialforce.orizuru.transport">Transport.Builder</a></dt>
 <dd>
-<div class="block">Sets the value of the 'messageSchema' field.</div>
+<div class="block">Sets the value of the 'messageSchemaName' field.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#setMessageSchema-java.lang.CharSequence-">setMessageSchema(CharSequence)</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
+<dt><span class="memberNameLink"><a href="com/financialforce/orizuru/transport/Transport.html#setMessageSchemaName-java.lang.CharSequence-">setMessageSchemaName(CharSequence)</a></span> - Method in class com.financialforce.orizuru.transport.<a href="com/financialforce/orizuru/transport/Transport.html" title="class in com.financialforce.orizuru.transport">Transport</a></dt>
 <dd>
-<div class="block">Sets the value of the 'messageSchema' field.</div>
+<div class="block">Sets the value of the 'messageSchemaName' field.</div>
 </dd>
 </dl>
 <a name="I:T">

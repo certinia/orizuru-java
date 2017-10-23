@@ -6,7 +6,7 @@
 <module name="Checker">
 	<property name="charset" value="UTF-8" />
 
-	<property name="severity" value="warning" />
+	<property name="severity" value="error" />
 
 	<module name="Header">
 		<property name="headerFile" value="src/config/java.header" />
@@ -156,5 +156,9 @@
 			<property name="exceptionVariableName" value="expected" />
 		</module>
 		<module name="CommentsIndentation" />
+		<module name="UnusedImports" />
 	</module>
+
+	<module name="NewlineAtEndOfFile" />
+
 </module>

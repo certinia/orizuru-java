@@ -26,47 +26,31 @@
 
 package com.financialforce.orizuru.message;
 
-import java.nio.ByteBuffer;
+import org.hamcrest.core.IsInstanceOf;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import org.apache.avro.Schema;
-
-import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
 import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
-import com.financialforce.orizuru.transport.Transport;
 
-/**
- * Wraps the context part of the FinancialForce Orizuru Avro Transport schema.
- */
-public class Context extends Message {
+public class ContextTest {
 
-	/**
-	 * Constructs a new empty Avro context.
-	 */
-	public Context() {
-		super();
-	}
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
 
-	/**
-	 * Decode the context from the transport.
-	 * 
-	 * @param input The FinancialForce Orizuru Avro Transport message from which to decode the context.
-	 * @throws OrizuruConsumerException Exception thrown if decoding the context fails.
-	 */
-	@Override
-	public void decodeFromTransport(Transport input) throws OrizuruConsumerException {
+	@Test
+	public void decodeFromTransport_shouldThrowADecodeContextExceptionsIfTheTransportIsNull() throws Exception {
 
-		try {
+		// expect
+		exception.expect(DecodeContextException.class);
+		exception.expectMessage("Failed to consume message: Failed to decode context");
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
-			String contextSchemaStr = input.getContextSchema().toString();
-			Schema.Parser parser = new Schema.Parser();
-			this.schema = parser.parse(contextSchemaStr);
+		// given
+		Context context = new Context();
 
-			ByteBuffer contextBuffer = input.getContextBuffer();
-			this.data = contextBuffer.array();
-
-		} catch (Exception ex) {
-			throw new DecodeContextException(ex);
-		}
+		// when
+		context.decodeFromTransport(null);
 
 	}
 

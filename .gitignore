@@ -2,6 +2,7 @@
 .classpath
 .DS_Store
 .project
-.settings
 
 target
+
+org.eclipse.core.resources.prefs
