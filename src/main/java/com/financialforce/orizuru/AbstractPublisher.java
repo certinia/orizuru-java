@@ -29,7 +29,6 @@ package com.financialforce.orizuru;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
-import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericContainer;
 import org.apache.avro.io.BinaryEncoder;
 import org.apache.avro.io.DatumWriter;
@@ -37,7 +36,6 @@ import org.apache.avro.io.EncoderFactory;
 import org.apache.avro.specific.SpecificDatumWriter;
 
 import com.financialforce.orizuru.exception.publisher.OrizuruPublisherException;
-import com.financialforce.orizuru.exception.publisher.encode.EncodeMessageContentException;
 import com.financialforce.orizuru.exception.publisher.encode.EncodeTransportException;
 import com.financialforce.orizuru.interfaces.IPublisher;
 import com.financialforce.orizuru.message.Context;
@@ -73,23 +71,28 @@ public abstract class AbstractPublisher<O extends GenericContainer> implements I
 		this.queueName = queueName;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.financialforce.orizuru.interfaces.IPublisher#publish(com.financialforce.orizuru.message.Context, org.apache.avro.generic.GenericContainer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.financialforce.orizuru.interfaces.IPublisher#publish(com.financialforce.
+	 * orizuru.message.Context, org.apache.avro.generic.GenericContainer)
 	 */
 	@Override
 	public byte[] publish(Context context, O message) throws OrizuruPublisherException {
 
 		try {
 
-			Message outgoingMessage = encodeMessage(message);
-
-			CharSequence contextSchema = context.getSchemaStr();
+			CharSequence contextSchema = context.getSchema().toString();
 			ByteBuffer contextBuffer = context.getDataBuffer();
 
-			CharSequence messageSchema = outgoingMessage.getSchemaStr();
+			Message outgoingMessage = new Message();
+			outgoingMessage.encode(message);
+
+			CharSequence messageSchemaName = outgoingMessage.getSchemaName();
 			ByteBuffer messageBuffer = outgoingMessage.getDataBuffer();
 
-			return writeTransport(contextSchema, contextBuffer, messageSchema, messageBuffer);
+			return writeTransport(contextSchema, contextBuffer, messageSchemaName, messageBuffer);
 
 		} catch (OrizuruPublisherException ex) {
 			throw ex;
@@ -105,26 +108,6 @@ public abstract class AbstractPublisher<O extends GenericContainer> implements I
 	}
 
 	// private methods
-
-	private Message encodeMessage(O message) throws EncodeMessageContentException {
-
-		try {
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-			Schema schema = message.getSchema();
-			DatumWriter<O> outputDatumWriter = new SpecificDatumWriter<O>(schema);
-			BinaryEncoder encoder = EncoderFactory.get().binaryEncoder(baos, null);
-			outputDatumWriter.write(message, encoder);
-			encoder.flush();
-
-			return new Message(schema, baos.toByteArray());
-
-		} catch (Exception ex) {
-			throw new EncodeMessageContentException(ex);
-		}
-
-	}
 
 	private byte[] writeTransport(CharSequence contextSchema, ByteBuffer contextBuffer, CharSequence messageSchema,
 			ByteBuffer messageBuffer) throws EncodeTransportException {

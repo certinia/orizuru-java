@@ -26,7 +26,13 @@
 
 package com.financialforce.orizuru.message;
 
+import java.nio.ByteBuffer;
+
 import org.apache.avro.Schema;
+
+import com.financialforce.orizuru.exception.consumer.OrizuruConsumerException;
+import com.financialforce.orizuru.exception.consumer.decode.DecodeContextException;
+import com.financialforce.orizuru.transport.Transport;
 
 /**
  * Wraps the context part of the FinancialForce Orizuru Avro Transport schema.
@@ -34,13 +40,34 @@ import org.apache.avro.Schema;
 public class Context extends Message {
 
 	/**
-	 * Constructs an Avro context containing the schema and the context data.
-	 * 
-	 * @param schema The FinancialForce Orizuru Avro Context schema.
-	 * @param data The FinancialForce Orizuru Avro Context data.
+	 * Constructs a new empty Avro context.
 	 */
-	public Context(Schema schema, byte[] data) {
-		super(schema, data);
+	public Context() {
+		super();
+	}
+
+	/**
+	 * Decode the context from the transport.
+	 * 
+	 * @param input The FinancialForce Orizuru Avro Transport message from which to decode the context.
+	 * @throws OrizuruConsumerException Exception thrown if decoding the context fails.
+	 */
+	@Override
+	public void decodeMessageFromTransport(Transport input) throws OrizuruConsumerException {
+
+		try {
+
+			String contextSchemaStr = input.getContextSchema().toString();
+			Schema.Parser parser = new Schema.Parser();
+			this.schema = parser.parse(contextSchemaStr);
+
+			ByteBuffer contextBuffer = input.getContextBuffer();
+			this.data = contextBuffer.array();
+
+		} catch (Exception ex) {
+			throw new DecodeContextException(ex);
+		}
+
 	}
 
 }
