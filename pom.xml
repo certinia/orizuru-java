@@ -92,10 +92,17 @@
 						<id>validate</id>
 						<phase>validate</phase>
 						<configuration>
+							<sourceDirectories>
+								<sourceDirectory>src/main/java</sourceDirectory>
+							</sourceDirectories>
+							<testSourceDirectories>
+								<testSourceDirectory>src/test/java</testSourceDirectory>
+							</testSourceDirectories>
 							<configLocation>src/config/checkstyle.xml</configLocation>
-							<encoding>UTF-8</encoding>
 							<consoleOutput>true</consoleOutput>
+							<encoding>UTF-8</encoding>
 							<failsOnError>true</failsOnError>
+							<includeTestSourceDirectory>true</includeTestSourceDirectory>
 							<linkXRef>false</linkXRef>
 						</configuration>
 						<goals>
@@ -192,9 +199,6 @@
 					</execution>
 					<execution>
 						<id>default-check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
 						<configuration>
 							<rules>
 								<rule>
@@ -213,6 +217,9 @@
 								</rule>
 							</rules>
 						</configuration>
+						<goals>
+							<goal>check</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
