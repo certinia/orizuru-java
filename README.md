@@ -1,5 +1,7 @@
 # Orizuru-Java
 
+[![Build Status](https://travis-ci.org/financialforcedev/orizuru-java.svg?branch=master)](https://travis-ci.org/financialforcedev/orizuru-java)
+
 Orizuru-Java is a transport library for the [Orizuru](https://www.npmjs.com/package/@financialforcedev/orizuru) framework.
 
 ## API Docs
