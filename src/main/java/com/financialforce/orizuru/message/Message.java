@@ -27,7 +27,6 @@
 package com.financialforce.orizuru.message;
 
 import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Constructor;
 import java.nio.ByteBuffer;
 
 import org.apache.avro.Schema;
@@ -108,13 +107,10 @@ public class Message {
 	public void decodeFromTransport(Transport input) throws OrizuruConsumerException {
 
 		try {
-
-			String messageSchemaName = input.getMessageSchemaName().toString();
-
-			Class<?> avroClass = Class.forName(messageSchemaName);
-			Constructor<?> constructor = avroClass.getConstructor();
-			GenericContainer container = (GenericContainer) constructor.newInstance();
-			this.schema = container.getSchema();
+		
+			String messageSchemaStr = input.getMessageSchema().toString();
+			Schema.Parser parser = new Schema.Parser();
+			this.schema = parser.parse(messageSchemaStr);
 
 			ByteBuffer messageBuffer = input.getMessageBuffer();
 			this.data = messageBuffer.array();
@@ -158,13 +154,6 @@ public class Message {
 	 */
 	public byte[] getData() {
 		return data;
-	}
-
-	/**
-	 * @return the schema name
-	 */
-	public CharSequence getSchemaName() {
-		return schema.getFullName();
 	}
 
 	/**
