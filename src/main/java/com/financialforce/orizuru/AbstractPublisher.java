@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017, FinancialForce.com, inc
+ * Copyright (c) 2017-2018, FinancialForce.com, inc
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -89,10 +89,10 @@ public abstract class AbstractPublisher<O extends GenericContainer> implements I
 			Message outgoingMessage = new Message();
 			outgoingMessage.encode(message);
 
-			CharSequence messageSchemaName = outgoingMessage.getSchemaName();
+			CharSequence messageSchema = outgoingMessage.getSchema().toString();
 			ByteBuffer messageBuffer = outgoingMessage.getDataBuffer();
 
-			return writeTransport(contextSchema, contextBuffer, messageSchemaName, messageBuffer);
+			return writeTransport(contextSchema, contextBuffer, messageSchema, messageBuffer);
 
 		} catch (OrizuruPublisherException ex) {
 			throw ex;
