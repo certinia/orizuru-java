@@ -32,6 +32,7 @@ import java.nio.ByteBuffer;
 import java.util.Base64;
 
 import org.apache.avro.Schema;
+import org.apache.avro.SchemaParseException;
 import org.apache.avro.generic.GenericData.Record;
 import org.apache.avro.generic.GenericRecordBuilder;
 import org.hamcrest.core.IsInstanceOf;
@@ -104,17 +105,17 @@ public class MessageTest {
 	}
 
 	@Test
-	public void decodeFromTransport_shouldThrowADecodeMessageExceptionWithAClassNotFoundExceptionIfTheMessageSchemaNameClassDoesNotExist()
+	public void decodeFromTransport_shouldThrowADecodeMessageExceptionWithASchemaParseExceptionIfTheSchemaIsInvalid()
 			throws Exception {
 
 		// expect
 		exception.expect(DecodeMessageException.class);
 		exception.expectMessage("Failed to consume message: Failed to decode message");
-		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(ClassNotFoundException.class));
+		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(SchemaParseException.class));
 
 		// given
 		Transport transport = new Transport();
-		transport.setMessageSchemaName("invalid");
+		transport.setMessageSchema("invalid");
 
 		Message message = new Message();
 
@@ -129,8 +130,10 @@ public class MessageTest {
 		// given
 		ByteBuffer expectedMessage = ByteBuffer.wrap("{\"name\":\"testName\"}".getBytes());
 
+		String schema = "{\"type\":\"record\",\"name\":\"TestSchema\",\"namespace\":\"com.financialforce.orizuru.AbstractConsumerTest\",\"fields\":[{\"name\":\"testString\",\"type\":\"string\"}]}";
+		
 		Transport transport = new Transport();
-		transport.setMessageSchemaName("com.financialforce.orizuru.util.TestMessage");
+		transport.setMessageSchema(schema);
 		transport.setMessageBuffer(expectedMessage);
 
 		Message message = new Message();
@@ -192,22 +195,6 @@ public class MessageTest {
 
 		// when/then
 		assertEquals(schema, message.getSchema());
-
-	}
-
-	@Test
-	public void getSchemaName_shouldReturnTheMessageSchemaName() throws Exception {
-
-		// given
-		String expectedSchemaName = "com.financialforce.orizuru.util.TestMessage";
-
-		TestMessage testMessage = new TestMessage();
-		Schema schema = testMessage.getSchema();
-
-		Message message = new Message(schema, null);
-
-		// when/then
-		assertEquals(expectedSchemaName, message.getSchemaName());
 
 	}
 

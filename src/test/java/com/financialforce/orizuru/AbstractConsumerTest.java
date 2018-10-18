@@ -33,7 +33,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import org.apache.avro.Schema;
+import java.util.Base64;
+
 import org.apache.avro.generic.GenericContainer;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
@@ -49,7 +50,8 @@ import com.financialforce.orizuru.message.Context;
 
 public class AbstractConsumerTest {
 
-	private static final String VALID_MESSAGE = "V{\"name\":\"test\",\"type\":\"record\",\"fields\":[]}{}tcom.financialforce.orizuru.AbstractConsumerTest$TestSchematestData";
+	private static final String VALID_MESSAGE = "VnsidHlwZSI6InJlY29yZCIsIm5hbWUiOiJ0ZXN0IiwiZmllbGRzIjpbXX0Ee32oAnsidHlwZSI6InJlY29yZCIsIm5hbWUiOiJUZXN0U2NoZW1hIi"
+			+ "wibmFtZXNwYWNlIjoiY29tLmZpbmFuY2lhbGZvcmNlLm9yaXp1cnUuQWJzdHJhY3RDb25zdW1lclRlc3QiLCJmaWVsZHMiOlt7Im5hbWUiOiJ0ZXN0U3RyaW5nIiwidHlwZSI6InN0cmluZyJ9XX0KCHRlc3Q";
 
 	private static final String QUEUE_NAME = "testQueue";
 
@@ -77,7 +79,7 @@ public class AbstractConsumerTest {
 		Consumer consumer = new Consumer(QUEUE_NAME);
 		consumer.setPublisher(publisher);
 
-		byte[] body = VALID_MESSAGE.getBytes();
+		byte[] body = Base64.getDecoder().decode(VALID_MESSAGE.getBytes());
 
 		// when
 		consumer.consume(body);
@@ -91,7 +93,7 @@ public class AbstractConsumerTest {
 	public void consume_shouldDecodeTheTransport() throws Exception {
 
 		// given
-		byte[] body = VALID_MESSAGE.getBytes();
+		byte[] body = Base64.getDecoder().decode(VALID_MESSAGE.getBytes());
 
 		IConsumer consumer = new Consumer(QUEUE_NAME);
 
@@ -128,7 +130,7 @@ public class AbstractConsumerTest {
 		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
 		// given
-		byte[] body = VALID_MESSAGE.getBytes();
+		byte[] body = Base64.getDecoder().decode(VALID_MESSAGE.getBytes());
 
 		IConsumer consumer = new ErrorConsumer(QUEUE_NAME);
 
@@ -146,25 +148,12 @@ public class AbstractConsumerTest {
 		exception.expectCause(IsInstanceOf.<Throwable>instanceOf(NullPointerException.class));
 
 		// given
-		byte[] body = VALID_MESSAGE.getBytes();
+		byte[] body = Base64.getDecoder().decode(VALID_MESSAGE.getBytes());
 
 		IConsumer consumer = new ErrorConsumer2(QUEUE_NAME);
 
 		// when
 		consumer.consume(body);
-
-	}
-
-	public static class TestSchema implements GenericContainer {
-
-		public TestSchema() {
-		}
-
-		@Override
-		public Schema getSchema() {
-			return new Schema.Parser().parse(
-					"{\"type\":\"record\",\"name\":\"TestSchema\",\"namespace\":\"com.financialforce.orizuru.AbstractConsumerTest\",\"fields\":[]}");
-		}
 
 	}
 
