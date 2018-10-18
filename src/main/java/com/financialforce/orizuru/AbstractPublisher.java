@@ -89,10 +89,10 @@ public abstract class AbstractPublisher<O extends GenericContainer> implements I
 			Message outgoingMessage = new Message();
 			outgoingMessage.encode(message);
 
-			CharSequence messageSchemaName = outgoingMessage.getSchemaName();
+			CharSequence messageSchema = outgoingMessage.getSchema().toString();
 			ByteBuffer messageBuffer = outgoingMessage.getDataBuffer();
 
-			return writeTransport(contextSchema, contextBuffer, messageSchemaName, messageBuffer);
+			return writeTransport(contextSchema, contextBuffer, messageSchema, messageBuffer);
 
 		} catch (OrizuruPublisherException ex) {
 			throw ex;
